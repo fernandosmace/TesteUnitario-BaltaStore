@@ -1,10 +1,17 @@
-﻿using Store.Domain.Enums;
+﻿using Flunt.Validations;
+using Store.Domain.Enums;
 
 namespace Store.Domain.Entities;
 public class Order : Entity
 {
     public Order(Customer customer, decimal deliveryFee, Discount discount)
     {
+        AddNotifications(
+            new Contract()
+                .Requires()
+                .IsNotNull(customer, "Customer", "Cliente inválido")
+       );
+
         Customer = customer;
         Date = DateTime.Now;
         Number = Guid.NewGuid().ToString().Substring(0, 8);
@@ -21,7 +28,12 @@ public class Order : Entity
     public Discount Discount { get; private set; }
     public EOrderStatus Status { get; private set; }
 
-    public void AddItem(Product product, int quantity) => Items.Add(new OrderItem(product, quantity));
+    public void AddItem(Product product, int quantity)
+    {
+        var item = new OrderItem(product, quantity);
+        if (item.Valid)
+            Items.Add(item);
+    }
 
     public decimal Total()
     {
