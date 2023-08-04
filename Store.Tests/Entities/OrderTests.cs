@@ -90,7 +90,15 @@ namespace Store.Tests.Entities
             order.AddItem(_product, 5);
 
             Assert.Equal(order.Total(), 60);
+        }
 
+        [Fact]
+        public void Dado_Um_Desconto_Invalido_O_Valor_Do_Pedido_Deve_Ser_60()
+        {
+            var order = new Order(_customer, 10, null);
+            order.AddItem(_product, 5);
+
+            Assert.Equal(order.Total(), 60);
         }
     }
 }
