@@ -57,5 +57,19 @@ namespace Store.Tests.Entities
             Assert.Equal(orderCount, order.Items.Count);
 
         }
+
+        [Fact]
+        public void Dado_Um_Novo_Item_Com_Quantidade_Zero_Ou_Menor_O_Mesmo_Nao_Deve_Ser_Adicionado()
+        {
+            var order = new Order(_customer, 0, null);
+            var orderCount = order.Items.Count;
+
+            order.AddItem(_product, -1);
+
+            order.AddItem(_product, 0);
+
+            Assert.Equal(orderCount, order.Items.Count);
+
+        }
     }
 }
