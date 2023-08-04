@@ -117,5 +117,13 @@ namespace Store.Tests.Entities
 
             Assert.Equal(order.Total(), 60);
         }
+
+        [Fact]
+        public void Dado_Um_Pedido_Sem_Cliente_O_Mesmo_Deve_Ser_Invalido()
+        {
+            var order = new Order(null, 10, _discount);
+
+            Assert.Equal(order.Valid, false);
+        }
     }
 }
