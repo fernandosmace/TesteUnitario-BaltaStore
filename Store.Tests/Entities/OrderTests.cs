@@ -71,5 +71,15 @@ namespace Store.Tests.Entities
             Assert.Equal(orderCount, order.Items.Count);
 
         }
+
+        [Fact]
+        public void Dado_Um_Novo_Pedido_Valido_Seu_Total_Deve_Ser_50()
+        {
+            var order = new Order(_customer, 10, _discount);
+            order.AddItem(_product, 5);
+
+            Assert.Equal(order.Total(), 50);
+
+        }
     }
 }
