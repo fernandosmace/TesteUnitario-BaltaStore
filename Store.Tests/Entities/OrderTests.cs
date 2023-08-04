@@ -46,6 +46,16 @@ namespace Store.Tests.Entities
             Assert.Equal(order.Status, EOrderStatus.Canceled);
         }
 
+        [Fact]
+        public void Dado_Um_Novo_Item_Sem_Produto_O_Mesmo_Nao_Deve_Ser_Adicionado()
+        {
+            var order = new Order(_customer, 0, null);
+            var orderCount = order.Items.Count;
 
+            order.AddItem(null, 1);
+
+            Assert.Equal(orderCount, order.Items.Count);
+
+        }
     }
 }
