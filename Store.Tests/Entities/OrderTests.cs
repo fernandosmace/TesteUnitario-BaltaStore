@@ -9,7 +9,7 @@ namespace Store.Tests.Entities
     {
         private readonly Customer _customer = new Customer("Teste", "teste@teste.com.br");
         private readonly Product _product = new Product("Produto 1", 10, true);
-
+        private readonly Discount _discount = new Discount(10, DateTime.Now.AddDays(5));
         [Fact]
         public void Dado_Um_Novo_Pedido_Valido_Ele_Deve_Gerar_Um_Novo_Numero_Com_8_Caracteres()
         {
@@ -74,8 +74,7 @@ namespace Store.Tests.Entities
         [Fact]
         public void Dado_Um_Novo_Pedido_Valido_Seu_Total_Deve_Ser_50()
         {
-            var discount = new Discount(10, DateTime.Now.AddDays(5));
-            var order = new Order(_customer, 10, discount);
+            var order = new Order(_customer, 10, _discount);
             order.AddItem(_product, 5);
 
             Assert.Equal(order.Total(), 50);
@@ -97,6 +96,24 @@ namespace Store.Tests.Entities
         {
             var order = new Order(_customer, 10, null);
             order.AddItem(_product, 5);
+
+            Assert.Equal(order.Total(), 60);
+        }
+
+        [Fact]
+        public void Dado_Um_Desconto_De_10_O_Valor_Do_Pedido_Deve_Ser_50()
+        {
+            var order = new Order(_customer, 10, _discount);
+            order.AddItem(_product, 5);
+
+            Assert.Equal(order.Total(), 50);
+        }
+
+        [Fact]
+        public void Dado_Uma_Taxa_De_Entrega_De_10_O_Valor_Do_Pedido_De_Ser_60()
+        {
+            var order = new Order(_customer, 10, _discount);
+            order.AddItem(_product, 6);
 
             Assert.Equal(order.Total(), 60);
         }
