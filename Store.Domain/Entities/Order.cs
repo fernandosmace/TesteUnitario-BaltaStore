@@ -52,4 +52,9 @@ public class Order : Entity
         if (amount == Total())
             Status = EOrderStatus.WaitingDelivery;
     }
+
+    public void Cancel()
+    {
+        Status = EOrderStatus.Canceled;
+    }
 }
