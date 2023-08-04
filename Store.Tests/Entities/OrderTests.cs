@@ -26,5 +26,16 @@ namespace Store.Tests.Entities
 
             Assert.Equal(EOrderStatus.WaitingPayment, order.Status);
         }
+
+        [Fact]
+        public void Dado_Um_Pagamento_Do_Pedido_Seu_Status_Deve_Ser_Aguardando_Entrega()
+        {
+            var order = new Order(_customer, 0m, null);
+            order.AddItem(_product, 1);
+            order.Pay(10);
+
+            Assert.Equal(EOrderStatus.WaitingDelivery, order.Status);
+        }
+
     }
 }
