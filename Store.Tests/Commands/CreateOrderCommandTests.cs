@@ -7,7 +7,7 @@ namespace Store.Tests.Commands
     public class CreateOrderCommandTests
     {
         [Fact]
-        [Trait("Category", "Handlers")]
+        [Trait("Category", "Commands")]
         public void Dado_Um_Comand_Invalido_O_Pedido_Deve_Nao_Deve_Ser_Gerado()
         {
             var command = new CreateOrderCommand();
